@@ -1,5 +1,5 @@
 import { View, Text, FlatList,StyleSheet, Button, TouchableOpacity } from 'react-native'
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { listCategory, listProducts } from '../../sagasapp/actions';
 import { useNavigation } from '@react-navigation/native';
@@ -9,6 +9,7 @@ import ActionButton from '../../resuableUI/actionButton';
 
 const Category = () => {
 
+  const [productList, setProductList] = useState([])
 const dispatch = useDispatch();
 const productData=useSelector(state=>state.products);
 const navigation = useNavigation();
@@ -16,6 +17,10 @@ const navigation = useNavigation();
 useEffect(()=>{
   dispatch(listProducts())
 },[])
+
+useEffect(()=>{
+  setProductList(productData)
+},[productData])
 
 // Navigate and pass the data  to the target component
 const handeleUpdatePress=(data,item)=>{
@@ -35,6 +40,7 @@ const renderItem=({item})=>(
       <Text style={styles.listtext}>{item.ProductName}</Text>
       <Text style={styles.listtext}>{item.Description}</Text>
       <Text style={styles.listtext}>{item.Price}</Text>
+      <Text style={styles.listtext}>{item.Manufacturer}</Text>
       <View style={styles.buttons}>
       <ActionButton type="Update" handeleUpdatePress={handeleUpdatePress} item={item}/>
       <ActionButton type="Delete" handeleUpdatePress={handeleUpdatePress} item={item}/>
@@ -44,7 +50,7 @@ const renderItem=({item})=>(
   return (
     <View style={styles.viewContainer}>
         <FlatList
-        data={productData}
+        data={productList}
         keyExtractor={({ ProductId }) => ProductId}
         numColumns={2}
         renderItem={renderItem}
