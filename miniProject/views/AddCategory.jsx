@@ -21,17 +21,14 @@ const AddCategory = () => {
     const addProductData =() =>{
         if(data?.type=="Delete"){
             dispatch(deleteCategory(category.CategoryId))
-            dispatch(listCategory())
         }
 
         if(data?.type=="Update"){
             dispatch(updateCategory(category))
-            dispatch(listCategory())
         }
         else{
 
             dispatch(addCategory(category))
-            dispatch(listCategory())
         }
         dispatch(listCategory())
         navigation.navigate("Category")
@@ -40,7 +37,7 @@ const AddCategory = () => {
         <View style={styles.incontainer}>
             <Text style={styles.intext}>Category Id:</Text>
             <TextInput value={category.CategoryId.toString()} style={data?.type == "Delete" || data?.type == "Update"  ?  styles.disableTextInput : styles.textInput}
-              onChangeText={text=>setCategory({...category, CategoryId:text})} editable={data?.type == "Delete" ? false : true} 
+              onChangeText={text=>setCategory({...category, CategoryId:text})} editable={data?.type == "Delete" || data?.type == "Update" ? false : true} 
             />
               <Text style={styles.intext}>Category Name:</Text>
             <TextInput value={category.CategoryName.toString()} style={data?.type == "Delete"  ?  styles.disableTextInput : styles.textInput}

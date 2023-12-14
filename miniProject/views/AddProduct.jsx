@@ -32,16 +32,13 @@ const AddProduct = () => {
         
         if(data?.type=="Delete"){
             dispatch(deleteCategory(product.ProductUniqueId))
-            dispatch(listProducts())
         }
 
         if(data?.type=="Update"){
             dispatch(updateProduct(product))
-            dispatch(listProducts())
         }
         else{
             dispatch(addProduct(product))
-            dispatch(listProducts())
         }
         dispatch(listProducts())
         navigation.navigate("Products")

@@ -73,6 +73,9 @@ function* addCategorySuccessOutputGeneraor(action){
         type: ADD_CATEGORY_SUCCESS,
         payload: response
     });
+    yield put({
+      type:LIST_CATEGORIES,
+    })
   }catch(e){
   }
 }
@@ -96,6 +99,9 @@ function* updateCategorySuccessOutputGenerator(action){
     yield put ({
         type: UPDATE_CATEGORY_SUCCESS,
         payload: response
+    })
+    yield put({
+      type:LIST_CATEGORIES,
     })
   }catch(e){
     console.log("error",e)
@@ -135,7 +141,9 @@ function* addProductSuccessOutputGenerator(action){
       type:ADD_CATEGORY_SUCCESS,
       payload:response
     })
-    
+    yield put({
+      type:LIST_PRODUCTS,
+    })
   } catch (error) {
     console.log("error",error);
   }
@@ -149,7 +157,9 @@ function* updateProductSuccessOutputGenerator(action){
       type:UPDATE_PRODUCT_SUCCESS,
       action:response
     })
-    
+    yield put({
+      type:LIST_PRODUCTS,
+    })
   } catch (error) {
       console.log("error",error)
   }
